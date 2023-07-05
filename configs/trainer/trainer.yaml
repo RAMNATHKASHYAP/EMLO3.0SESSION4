@@ -1,0 +1,10 @@
+trainer:
+  _target_: pytorch_lightning.Trainer
+  # Other trainer configuration options
+  callbacks:
+    - _target_: pytorch_lightning.callbacks.ModelCheckpoint
+      monitor: 'val_loss'  # Metric to monitor for determining the best model
+      mode: 'min'  # Mode for comparing the monitored metric ('min' or 'max')
+      save_top_k: 1  # Number of best models to save
+      dirpath: 'checkpoints/'  # Directory path to save the checkpoints
+      filename: 'model-{epoch}-{val_loss:.4f}'  # Filename pattern for saved checkpoints

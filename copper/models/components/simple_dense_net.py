@@ -1,10 +1,10 @@
-from torch import nn
+import torch.nn as nn
 
 
 class SimpleDenseNet(nn.Module):
     def __init__(
         self,
-        input_size: int = 784,
+        input_size: int = 32 * 32 * 3,
         lin1_size: int = 256,
         lin2_size: int = 256,
         lin3_size: int = 256,
@@ -28,10 +28,11 @@ class SimpleDenseNet(nn.Module):
     def forward(self, x):
         batch_size, channels, width, height = x.size()
 
-        # (batch, 1, width, height) -> (batch, 1*width*height)
+        # (batch, channels, width, height) -> (batch, channels*width*height)
         x = x.view(batch_size, -1)
 
         return self.model(x)
+
 
 
 if __name__ == "__main__":
